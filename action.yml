@@ -1,0 +1,9 @@
+name: 'Issue Markdown Data'
+description: Extract data from a GitHub issue's markdown
+
+outputs:
+  data:
+    description: 'The extracted data'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
