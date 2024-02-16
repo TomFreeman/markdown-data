@@ -23,6 +23,7 @@
     "@types/js-yaml": "^4.0.9",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.11.17",
+    "@vercel/ncc": "^0.38.1",
     "earl": "^1.1.0",
     "mocha": "^10.3.0",
     "ts-node": "^10.9.2",
