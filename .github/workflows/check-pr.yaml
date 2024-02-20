@@ -1,0 +1,34 @@
+name: Run on PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    name: Run unit tests
+    steps:
+    - uses: actions/checkout@v4
+    - run: npm ci
+    - run: npm test
+
+  verify:
+    runs-on: ubuntu-latest
+    name: Verify PR template
+    steps:
+    - uses: actions/checkout@v4
+    - run: npm ci
+    - uses: ./
+      id: extract
+
+    - uses: JoseThen/comment-pr@v1.2.0
+      with:
+        comment: 'Thanks for fixing ${{ steps.extract.outputs.issue }}'
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+    - name: Version successful builds
+      uses: tomfreeman/sem-vpr@v1
+      if: ${{ success() &&  !steps.extract.outputs.pr.release.skip }}
