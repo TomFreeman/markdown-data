@@ -12,7 +12,12 @@ describe('Read example.md', () => {
 
         expect(text.length).toBeGreaterThan(0);
         expect(elements).toEqual({
-            data1: "foo1"
+            data1: "foo1",
+            issue: "XX",
+            data2: "value2",
+            quote: "this is a quote",
+            quote2: "this is another quote",
+            quote3: "this is a monospace quote",
         })
     });
 
