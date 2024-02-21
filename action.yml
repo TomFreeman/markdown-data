@@ -2,7 +2,7 @@ name: 'Issue Markdown Data'
 description: Extract data from a GitHub issue's markdown
 
 outputs:
-  data:
+  index:
     description: 'The extracted data'
 runs:
   using: 'node20'

@@ -30,10 +30,11 @@ jobs:
 
     - uses: JoseThen/comment-pr@v1.2.0
       with:
-        comment: 'Thanks for fixing ${{ steps.extract.outputs.data.issue }}'
+        comment: 'Thanks for fixing ${{ steps.extract.outputs.issue }}'
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
 
     - name: Version successful builds
       uses: tomfreeman/sem-vpr@v1
-      if: ${{ success() &&  !steps.extract.outputs.data.pr.release.skip }}
+      if: ${{ success() &&  !steps.extract.outputs.pr.release.skip }}

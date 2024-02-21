@@ -2,6 +2,20 @@ import * as github from '@actions/github';
 import * as core from '@actions/core';
 import { readAllElements } from './mark';
 
+function unfoldOutput(prefix: string, elements: any) {
+    if (prefix !== "") {
+        prefix = prefix + ".";
+    }
+
+    for (const key in elements) {
+        const value = elements[key];
+        if (typeof value === 'object') {
+            unfoldOutput(`${prefix}${key}_`, value);
+        } else {
+            core.setOutput(`${prefix}${key}`, value);
+        }
+    }
+}
 
 async function run() {
     // Runs on issues or PRs
@@ -21,8 +35,8 @@ async function run() {
             core.info('No data found');
         }
 
-        // Store elements as the output of the action
-        core.setOutput('data', elements);
+        // Store the elements as outputs
+        unfoldOutput("", elements);
     } else {
         core.warning('No issue or PR body found');
     }
