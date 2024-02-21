@@ -4,7 +4,7 @@ Given that markdown data is intended to extract data from a PR description, wher
 
 # Request for Change
 
-Fixes <? _data_:issue ?>:- XX .
+Fixes <? _data_:issue ?>XX .
 
 ```yaml _data_:pr
 destination: production
