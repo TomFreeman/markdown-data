@@ -4,7 +4,19 @@ This GitHub Action allows you to extract data from a pull request's description.
 
 ## Usage
 
-To use this action, you need to add it to your workflow file. Here's an example of how to do this:
+To use this action, you need to add it to your workflow. The output of the action is available in `steps.extract_pr.outputs`, which can be used in subsequent steps in your workflow. Here's an example of how to do this:
+
+Given a description containing the following:
+
+```markdown
+...
+
+Fixes <? _data_:fixes ?>bug1 .
+
+...
+```
+
+And a template for a workflow:
 
 ```yaml
 name: Extract PR Description
@@ -25,12 +37,10 @@ jobs:
       uses: tomfreeman/markdown-data@v1
 
     - name: Use extracted data
-      run: echo "PR Description: ${{ steps.extract_pr.outputs.data }}"
+      run: echo "Fixed bugs: ${{ steps.extract_pr.outputs.fixes }}"
 ```
 
-In this example, the `Extract PR Description` step uses the `markdown-data` action.
-
-The output of the action is available in the `steps.extract_pr.outputs.data` variable, which can be used in subsequent steps in your workflow.
+We should get the output of fixes to be `bug1`.
 
 ## Outputs
 
