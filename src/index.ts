@@ -9,11 +9,18 @@ async function run() {
     const body = github.context.payload.issue?.body || github.context.payload.pull_request?.body;
 
     if (body != undefined) {
+        core.info('Parsing markdown')
         // Parse the markdown for reference links as a first attempt at a syntax
         const elements = readAllElements(body)
 
+        if (Object.keys(elements).length === 0) {
+            core.info('No data found');
+        }
+
         // Store elements as the output of the action
         core.setOutput('data', elements);
+    } else {
+        core.warning('No issue or PR body found');
     }
 }
 
