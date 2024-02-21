@@ -9,13 +9,12 @@ function unfoldOutput(prefix: string, elements: any) {
 
     for (const key in elements) {
         var value = elements[key];
-        if (typeof value === 'object') {
-            unfoldOutput(`${prefix}${key}`, value);
-            value = ""
-        }
-
         // Always set the output, otherwise it might be short-circuited
         core.setOutput(`${prefix}${key}`, value);
+
+        if (typeof value === 'object') {
+            unfoldOutput(`${prefix}${key}`, value);
+        }
     }
 }
 
