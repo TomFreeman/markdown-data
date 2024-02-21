@@ -35,7 +35,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Fail poor parsing
-      if: ${{ !steps.extract.outputs.pr.pass }}
+      if: ${{ steps.extract.outputs.pr.pass != true }}
       run: exit 1
 
     - name: Version successful builds
