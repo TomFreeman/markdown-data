@@ -4,17 +4,17 @@ import { readAllElements } from './mark';
 
 function unfoldOutput(prefix: string, elements: any) {
     if (prefix !== "") {
-        prefix = prefix + ".";
+        prefix = prefix + "_";
     }
 
     for (const key in elements) {
-        var value = elements[key];
-        // Always set the output, otherwise it might be short-circuited
-        core.setOutput(`${prefix}${key}`, value);
-
+        const value = elements[key];
         if (typeof value === 'object') {
             unfoldOutput(`${prefix}${key}`, value);
         }
+
+        // Always set the output, so folks can parse their own JSON if they like
+        core.setOutput(`${prefix}${key}`, value);
     }
 }
 

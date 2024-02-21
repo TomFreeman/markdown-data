@@ -35,9 +35,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Fail poor parsing
-      if: ${{ steps.extract.outputs.pr.pass != true }}
+      if: ${{ steps.extract.outputs.pr_pass != true }}
       run: exit 1
 
     - name: Version successful builds
       uses: tomfreeman/sem-vpr@v1
-      if: ${{ success() &&  !steps.extract.outputs.pr.release.skip }}
+      if: ${{ success() &&  !steps.extract.outputs.pr_release_skip }}

@@ -42,9 +42,21 @@ jobs:
 
 We should get the output of fixes to be `bug1`.
 
-## Outputs
+If your output is a json object, you can use `fromJSON` to parse it, or the elements
+will be available, using `_` as a separator.
 
-- `data`: An object representing the data embedded in the description.
+e.g. if the output is:
+
+```json
+{
+  "data": {
+    "fixes": "bug1",
+    "issue": "XX"
+  }
+}
+```
+
+If will be available as `steps.extract_pr.outputs.data_fixes` and `steps.extract_pr.outputs.data_issue`.
 
 ## Contributing
 
