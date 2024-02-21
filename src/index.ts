@@ -10,7 +10,7 @@ function unfoldOutput(prefix: string, elements: any) {
     for (const key in elements) {
         const value = elements[key];
         if (typeof value === 'object') {
-            unfoldOutput(`${prefix}${key}_`, value);
+            unfoldOutput(`${prefix}${key}`, value);
         } else {
             core.setOutput(`${prefix}${key}`, value);
         }

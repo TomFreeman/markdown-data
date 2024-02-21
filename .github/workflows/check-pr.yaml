@@ -33,7 +33,9 @@ jobs:
         comment: 'Thanks for fixing ${{ steps.extract.outputs.issue }}'
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-
+    - name: Fail poor parsing
+      if: ${{ !steps.extract.outputs.pr.pass }}
+      run: exit 1
 
     - name: Version successful builds
       uses: tomfreeman/sem-vpr@v1

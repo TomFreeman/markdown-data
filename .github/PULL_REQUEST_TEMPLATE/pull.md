@@ -8,6 +8,7 @@ Fixes <? _data_:issue ?>XX .
 
 ```yaml _data_:pr
 destination: production
+pass: true
 release:
     skip: false
 ```
