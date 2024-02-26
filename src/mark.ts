@@ -49,6 +49,35 @@ function readTextUntil(next: commonmark.NodeWalkingStep | null,walker: commonmar
     return text;
 }
 
+function readParagraph(walker: commonmark.NodeWalker): string {
+    let next = walker.next();
+    let text = "";
+    while (next !== null && next.node.type !== "paragraph") {
+        text += next.node.literal;
+        next = walker.next();
+    }
+    return text;
+}
+
+function readList(walker: commonmark.NodeWalker): Array<string> {
+    // Read all the items as array elements
+    const items: Array<string> = [];
+    let next = walker.next();
+    while (next !== null && next.node.type === "item") {
+        next = walker.next();
+        items.push(readParagraph(walker));
+
+        // Now read to the end of the item
+        while (next !== null && next.node.type !== "item") {
+            next = walker.next();
+        }
+        next = walker.next();
+    }
+
+    return items
+}
+
+
 
 export function readAllElements(body: string): elementCollection {
     const reader = new commonmark.Parser();
@@ -72,6 +101,16 @@ export function readAllElements(body: string): elementCollection {
                     const key = matches[1];
                     const value = matches[2];
                     elements[key] = value;
+                }
+            } else if (html_inline_regex.test(next?.node.literal || "")) {
+                // Possibly the start of a list
+                const matches = html_inline_regex.exec(next?.node.literal || "");
+                if (matches !== null) {
+                    const key = matches[1];
+                    next = walker.next();
+                    if (next?.node.type === "list") {
+                        elements[key] = readList(walker);
+                    }
                 }
             }
         } else if (next?.node.type === "html_inline") {
