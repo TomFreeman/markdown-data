@@ -39,7 +39,7 @@ jobs:
       id: extract
 
     - name: Fail poor parsing
-      if: ${{ steps.extract.outputs.pr_pass != 'true' }}
+      if: ${{  (github.event_name == 'pull_request') && steps.extract.outputs.pr_pass != 'true' }}
       run: exit 1
 
     - name: Version successful builds
