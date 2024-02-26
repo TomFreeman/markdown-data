@@ -47,4 +47,15 @@ describe('Read example.md', () => {
             }
         })
     });
+
+    it('checkboxes are parsed as booleans', () => {
+        const filePath = `${__dirname}/data/checkBoxes.md`;
+        const text = readFileSync(filePath, 'utf-8');
+
+        const elements = readAllElements(text);
+
+        expect(elements).toHaveSubset({
+            task1: false,
+        });
+    });
 });
