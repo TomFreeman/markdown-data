@@ -29,11 +29,6 @@ jobs:
     - uses: ./
       id: extract
 
-    - uses: JoseThen/comment-pr@v1.2.0
-      with:
-        comment: 'Thanks for fixing ${{ steps.extract.outputs.issue }}'
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Fail poor parsing
       if: ${{ steps.extract.outputs.pr_pass != 'true' }}
       run: exit 1

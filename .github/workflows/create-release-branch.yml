@@ -1,0 +1,32 @@
+name: Push Release Branch
+
+on:
+  workflow_dispatch:
+
+  push:
+    tags:
+      - v*.*.*
+      - "!v*.*.*-*"
+
+jobs:
+  create-branch:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.personal_token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.personal_token }}
+
+      - name: Set Node.js 18.x
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 18.x
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create release branch
+        run: ./.github/workflows/create-release-branch.sh
+
+
