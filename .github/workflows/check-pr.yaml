@@ -44,4 +44,4 @@ jobs:
 
     - name: Version successful builds
       uses: tomfreeman/sem-vpr@v1
-      if: ${{ success() && (github.event_name == 'push') }}
+      if: ${{ success() && ( steps.extract.outputs.pr_release_skip != 'true' ) }}
